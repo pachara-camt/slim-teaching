@@ -14,10 +14,11 @@ In the chapters of slim framework.
     ```
 
     If you already have `slim` directory, try to remove or rename the existing one.
-4.  Install all required libraries.
+4.  Change directory to `slim`.
+5.  Install all required libraries.
 
     ```
     composer install
     ```
 
-5.  Create your own `.env` file.
+6.  Create your own `.env` file.

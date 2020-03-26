@@ -1,7 +1,7 @@
 # slim-teaching
 
 This repository for course 954240.
-In the chapter of slim framework.
+In the chapters of slim framework.
 
 ## Instrallation
 

@@ -1,0 +1,293 @@
+/**
+ * Layout Setup
+ */
+html, body {
+  padding: 0px;
+  margin: 0px;
+}
+
+html {
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
+/**
+ * Layout Component Setup
+ */
+#header,
+#content {
+  display: block;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+body.ly-wide #header,
+body.ly-wide #content {
+  width: 900px;
+}
+
+#content {
+  padding: 8px;
+  border: 1px solid black;
+}
+
+#header>* {
+  text-align: center;
+}
+
+#header h1,
+#header h2 {
+  color: blue;
+}
+
+#user-panel {
+  padding: 8px;
+  text-align: right;
+}
+
+#user-panel .cl-label {
+  font-weight: bold;
+}
+
+#user-panel .cl-value {
+  color: #0000ff;
+}
+
+#cp-navigation {
+  margin-bottom: 24px;
+}
+
+#cp-message,
+#cp-error {
+  display: flex;
+  jusitfy-content: center;
+  justify-items: center;
+  box-sizing: border-box;
+  width: 300px;
+  max-width: 100%;
+  padding: 8px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 4px;
+  border: 1px solid #000000;
+  font-weight: bold;
+  text-align: center;
+}
+
+#cp-message .cl-message,
+#cp-error .cl-message {
+  line-height: 24px;
+  flex: 1 1 auto;
+}
+
+#cp-message {
+  color: #0000ff;
+  border-color: #0000ff;
+  fill: #0000ff;
+}
+
+#cp-error {
+  color: #ff0000;
+  border-color: #ff0000;
+  fill: #ff0000;
+}
+
+.ly-inline {
+  display: inline;
+}
+
+.ly-inline-block {
+  display: inline-block;
+}
+
+.ly-block {
+  display: block;
+}
+
+.ly-align-left {
+  text-align: left;
+}
+
+.ly-align-center {
+  text-align: center;
+}
+
+.ly-align-right {
+  text-align: right;
+}
+
+/**
+ * Application Component Setup
+ */
+/* List */
+table.cp-list {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table.cp-list>*>tr>* {
+  border: 1px solid black;
+}
+
+table.cp-list>thead {
+  background-color: gray;
+}
+
+/* Form */
+.cp-form {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.cp-form .cp-wrapper {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.cp-form .cp-wrapper>label>span {
+  display: inline;
+  font-weight: bold;
+  color: #0000ff;
+}
+
+.cp-form .cp-wrapper>label>span::after {
+  content: ':';
+}
+
+.cp-form .cp-wrapper>label>input:not([type="checkbox"]):not([type="radio"]),
+.cp-form .cp-wrapper>label>select,
+.cp-form .cp-wrapper>label>textbox {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+}
+
+.cp-form .cp-wrapper>label>input:not([type="checkbox"]):not([type="radio"]):focus,
+.cp-form .cp-wrapper>label>select:focus,
+.cp-form .cp-wrapper>label>textbox:focus {
+  box-shadow: 0px 0px 2px;
+}
+
+/* view */
+.cp-detail .cl-label,
+.cp-detail .cl-value {
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.cp-detail .cl-label {
+  width: 50%;
+  color: blue;
+  font-weight: bold;
+  text-align: right;
+  padding-right: 16px;
+}
+
+.cp-detail .cl-value {
+  padding-left: 16px;
+}
+
+/* button */
+button,
+.cp-button {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #ffffff !important;
+  background-color: #888888;
+  text-decoration: none;
+  vertical-align: baseline;
+}
+
+button.cl-flat,
+.cp-button.cl-flat {
+  color: inherit !important;
+  background-color: transparent;
+}
+
+button:hover,
+.cp-button:hover {
+  cursor: pointer;
+}
+
+/* panel */
+.cp-actions-panel {
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  justify-content: space-between;
+}
+
+.cp-actions-panel>:not(:first-child):not(.cp-space) {
+  margin-left: 4px;
+}
+
+.cp-actions-panel>.cp-space {
+  flex: auto;
+}
+
+/**
+ * Class Setup
+ */
+.cl-primary {
+  color: #0000ff;
+}
+
+.cl-decent {
+  color: #00ff00;
+}
+
+.cl-warn {
+  color: #ff0000;
+}
+
+button.cl-primary,
+.cp-button.cl-primary {
+  background-color: #0000ff;
+}
+
+button.cl-decent,
+.cp-button.cl-decent {
+  background-color: #00ff00;
+}
+
+button.cl-warn,
+.cp-button.cl-warn {
+  background-color: #ff0000;
+}
+
+.cl-primary *,
+.cl-decent *,
+.cl-warn * {
+  color: inherit;
+}
+
+.cl-action,
+.cl-action * {
+  text-decoration: none;
+  text-align: center;
+}
+.cl-action:hover,
+.cl-action:hover * {
+  text-shadow: 0px 0px 2px;
+}
+
+.cl-number {
+  font-family: monospace;
+  font-size: 1rem;
+  white-space: pre;
+  text-align: right;
+}

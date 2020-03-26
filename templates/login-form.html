@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>{%- block title %}{% endblock -%}</title>
+    <link rel="stylesheet" type="text/css"
+      href="{{ base_path() }}/css/material-icon.css" />
+    <link rel="stylesheet" type="text/css"
+      href="{{ base_path() }}/css/app.css" />
+    <link rel="stylesheet" type="text/css"
+      href="{{ base_path() }}/css/login/form.css" />
+  </head>
+  <body>
+    <form class="cp-form" id="login-form" action="" method="post">
+    <h1>612110xxx System</h1>
+    <div class="cp-wrapper">
+      <label>
+        <span>Username</span>
+        <input type="text" name="username" />
+      </label>
+    </div>
+    <div class="cp-wrapper">
+      <label>
+        <span>Password</span>
+        <input type="password" name="passwd" />
+      </label>
+    </div>
+    <div class="cp-actions-panel">
+      <span class="cp-space"></span>
+      <button class="cl-primary" type="submit">Login</button>
+      <span class="cp-space"></span>
+    </div>
+    </form>
+    {%~ if _session.getFlash('error') is not empty %}
+    <p id="cp-error">
+      <i class="material-icons">error</i>
+      <span class="cl-message">{{ _session.getFlash('error') }}</span>
+    </p>
+    {%~ endif %}
+  </body>
+</html>

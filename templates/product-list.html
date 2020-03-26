@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% set global_classes = ['ly-wide'] %}
+
+{% block title %}Product List{% endblock %}
+
+{# add css for product list #}
+{% block head %}
+    {{~ parent() }}
+    <link rel="stylesheet" type="text/css"
+      href="{{ base_path() }}/css/product/list.css" />
+{% endblock %}
+
+{% block header %}
+  <h1>{{ block('title') }}</h1>
+{% endblock %}
+
+{% block content %}
+  <div class="cp-actions-panel">
+    <a class="cp-button cl-primary" href="{{ url_for('product-add-form') }}" >Add Product</a>
+  </div>
+  <table class="cp-list" id="product-list">
+    <colgroup>
+      <col />
+      <col style="width: 10em;" />
+      <col style="width: 10em;" />
+      <col style="width: 10em;" />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+  {%~ for item in data %}
+      <tr>
+        <th class="cl-action cl-primary">
+          <a href="{{ url_for('product-view', {id: item.id}) }}">{{ item.name }}</a>
+        </th>
+        <td>{{ item.category_name }}</td>
+        <td class="cl-number">{{ item.price|number_format(2) }}</td>
+        <td class="cl-number">{{ item.qty|number_format(0) }}</td>
+      </tr>
+  {%~ endfor %}
+    </tbody>
+  </table>
+{% endblock %}

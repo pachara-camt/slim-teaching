@@ -1,0 +1,9 @@
+#product-view {
+  line-height: 2rem;
+}
+
+#product-view .cl-value.cl-number {
+  display: inline-block;
+  width: 8rem;
+  white-space: pre;
+}

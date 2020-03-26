@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+{% block head %}
+    <meta charset="UTF-8" />
+    <title>{%- block title %}{% endblock -%}</title>
+    <link rel="stylesheet" type="text/css"
+      href="{{ base_path() }}/css/material-icon.css" />
+    <link rel="stylesheet" type="text/css"
+      href="{{ base_path() }}/css/app.css" />
+{% endblock %}
+  </head>
+  <body class="{{ global_classes|join(' ') }}">
+    <div id="header">
+<!-- START: header -->
+{% block header %}{% endblock %}
+<!-- END: header -->
+    </div>
+    <div id="content">
+<!-- START: content -->
+{% block content %}{% endblock %}
+<!-- END: content -->
+    </div>
+  </body>
+</html>

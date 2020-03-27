@@ -25,5 +25,9 @@ In the chapters of slim framework.
 
 ## Snapshots
 
+Instead of using git command, you can use the following snapshots.
+Extract the zip file to web server document root, e.g. `C:\xampp\htdocs`, and rename directory to `slim`.
+Then start from step 4. in instrallation section.
+
 [After finish part 1 assignments](../../archive/part-1-finish.zip).
 

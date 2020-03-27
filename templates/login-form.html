@@ -11,7 +11,7 @@
       href="{{ base_path() }}/css/login/form.css" />
   </head>
   <body>
-    <form class="cp-form" id="login-form" action="" method="post">
+    <form class="cp-form" id="login-form" action="{{ url_for('login') }}" method="post">
     <h1>612110xxx System</h1>
     <div class="cp-wrapper">
       <label>
@@ -31,5 +31,11 @@
       <span class="cp-space"></span>
     </div>
     </form>
+    {%~ if _session.getFlash('error') is not empty %}
+    <p id="cp-error">
+      <i class="material-icons">error</i>
+      <span class="cl-message">{{ _session.getFlash('error') }}</span>
+    </p>
+    {%~ endif %}
   </body>
 </html>

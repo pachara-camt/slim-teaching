@@ -12,6 +12,10 @@ $app->get('/product/add',
   ProductController::class.':addFormAction'
 )->setName('product-add-form');
 
+$app->post('/product/add',
+  ProductController::class.':addAction'
+)->setName('product-add');
+
 $app->get('/product/{id}',
   ProductController::class.':viewAction'
 )->setName('product-view');
@@ -23,3 +27,11 @@ $app->get('/product/{id}/update',
 $app->get('/login',
   LoginController::class.':loginFormAction'
 )->setName('login-form');
+
+$app->post('/login',
+  LoginController::class.':loginAction'
+)->setName('login');
+
+$app->get('/logout',
+  LoginController::class.':logoutAction'
+)->setName('logout');

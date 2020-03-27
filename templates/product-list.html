@@ -15,6 +15,12 @@
 {% endblock %}
 
 {% block content %}
+  {%~ if _session.getFlash('message') is not empty %}
+  <p id="cp-message">
+    <i class="material-icons">info</i>
+    <span class="cl-message">{{ _session.getFlash('message') }}</span>
+  </p>
+  {%~ endif %}
   <div class="cp-actions-panel">
     <a class="cp-button cl-primary" href="{{ url_for('product-add-form') }}" >Add Product</a>
   </div>

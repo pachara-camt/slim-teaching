@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block content %}
-  <form class="cp-form" id="product-form" action="" method="post">
+  <form class="cp-form" id="product-form" action="{{ url_for('product-add') }}" method="post">
     <div class="cp-wrapper">
       <label>
         <span>Name</span>
@@ -25,8 +25,9 @@
       <label>
         <span>Category</span>
         <select name="id_category">
-          <option>Phone</option>
-          <option>Tablet</option>
+        {% for category in categoryList %}
+          <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
         </select>
       </label>
     </div>

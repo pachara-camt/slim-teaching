@@ -22,3 +22,6 @@ In the chapters of slim framework.
     ```
 
 6.  Create your own `.env` file.
+
+## Snapshots
+

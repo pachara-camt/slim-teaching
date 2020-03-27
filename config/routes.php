@@ -8,25 +8,32 @@ use App\Controller\ProductController;
 use App\Middleware\AuthorizationMiddleware;
 
 $productGroup = $app->group('/product', function(RouteCollectorProxy $group) {
+  $adminGroup = $group->group('', function(RouteCollectorProxy $group){
+    $group->get('/add',
+      ProductController::class.':addFormAction'
+    )->setName('product-add-form');
+    
+    $group->post('/add',
+      ProductController::class.':addAction'
+    )->setName('product-add');
+    
+    $group->get('/{id}/update',
+      ProductController::class.':updateFormAction'
+    )->setName('product-update-form');
+  });
+  
+  $adminGroup->add(new AuthorizationMiddleware(
+    $group->getResponseFactory(), ['ADMIN']
+  ));
+  
   $group->get('',
     ProductController::class.':listAction'
   )->setName('product-list');
-  
-  $group->get('/add',
-    ProductController::class.':addFormAction'
-  )->setName('product-add-form');
-  
-  $group->post('/add',
-    ProductController::class.':addAction'
-  )->setName('product-add');
   
   $group->get('/{id}',
     ProductController::class.':viewAction'
   )->setName('product-view');
   
-  $group->get('/{id}/update',
-    ProductController::class.':updateFormAction'
-  )->setName('product-update-form');
 });
 
 $productGroup->add(new AuthorizationMiddleware(

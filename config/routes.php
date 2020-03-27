@@ -5,6 +5,7 @@ use Slim\Routing\RouteCollectorProxy;
 
 use App\Controller\LoginController;
 use App\Controller\ProductController;
+use App\Middleware\AuthorizationMiddleware;
 
 $productGroup = $app->group('/product', function(RouteCollectorProxy $group) {
   $group->get('',
@@ -27,6 +28,10 @@ $productGroup = $app->group('/product', function(RouteCollectorProxy $group) {
     ProductController::class.':updateFormAction'
   )->setName('product-update-form');
 });
+
+$productGroup->add(new AuthorizationMiddleware(
+  $app->getResponseFactory(), ['USER', 'ADMIN']
+));
 
 $app->get('/login',
   LoginController::class.':loginFormAction'

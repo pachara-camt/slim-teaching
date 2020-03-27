@@ -25,3 +25,5 @@ In the chapters of slim framework.
 
 ## Snapshots
 
+[After finish part 1 assignments](/archive/part-1-finish.zip).
+

@@ -14,7 +14,10 @@
     <div id="user-panel">
       <span class="cl-label">Current User :</span>
       <span class="cl-value">{{ _global.get('user').username }}</span>
-      <a class="cp-button cl-decent" href="{{ url_for('logout') }}">Logout</a>
+      <a class="cp-button cl-decent" href="{{ url_for('logout') }}">
+        <i class="material-icons">exit_to_app</i>
+        <span>Logout</span>
+      </a>
     </div>
     <div id="header">
 <!-- START: header -->

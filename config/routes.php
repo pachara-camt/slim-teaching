@@ -3,48 +3,56 @@ declare(strict_types = 1);
 
 use Slim\Routing\RouteCollectorProxy;
 
+use App\Controller\CategoryController;
 use App\Controller\LoginController;
 use App\Controller\ProductController;
 use App\Middleware\AuthorizationMiddleware;
 
-$productGroup = $app->group('/product', function(RouteCollectorProxy $group) {
-  $adminGroup = $group->group('', function(RouteCollectorProxy $group){
-    $group->get('/add',
-      ProductController::class.':addFormAction'
-    )->setName('product-add-form');
+$appGroup = $app->group('', function(RouteCollectorProxy $group) {
+  $productGroup = $group->group('/product', function(RouteCollectorProxy $group) {
+    $adminGroup = $group->group('', function(RouteCollectorProxy $group){
+      $group->get('/add',
+        ProductController::class.':addFormAction'
+      )->setName('product-add-form');
+      
+      $group->post('/add',
+        ProductController::class.':addAction'
+      )->setName('product-add');
+      
+      $group->get('/{id}/update',
+        ProductController::class.':updateFormAction'
+      )->setName('product-update-form');
     
-    $group->post('/add',
-      ProductController::class.':addAction'
-    )->setName('product-add');
+      $group->post('/{id}/update',
+        ProductController::class.':updateAction'
+      )->setName('product-update');
+      
+      $group->get('/{id}/delete',
+        ProductController::class.':deleteAction'
+      )->setName('product-delete');
+    });
     
-    $group->get('/{id}/update',
-      ProductController::class.':updateFormAction'
-    )->setName('product-update-form');
-  
-    $group->post('/{id}/update',
-      ProductController::class.':updateAction'
-    )->setName('product-update');
+    $adminGroup->add(new AuthorizationMiddleware(
+      $group->getResponseFactory(), ['ADMIN']
+    ));
     
-    $group->get('/{id}/delete',
-      ProductController::class.':deleteAction'
-    )->setName('product-delete');
+    $group->get('',
+      ProductController::class.':listAction'
+    )->setName('product-list');
+    
+    $group->get('/{id}',
+      ProductController::class.':viewAction'
+    )->setName('product-view');
   });
-  
-  $adminGroup->add(new AuthorizationMiddleware(
-    $group->getResponseFactory(), ['ADMIN']
-  ));
-  
-  $group->get('',
-    ProductController::class.':listAction'
-  )->setName('product-list');
-  
-  $group->get('/{id}',
-    ProductController::class.':viewAction'
-  )->setName('product-view');
-  
+
+  $categoryGroup = $group->group('/category', function(RouteCollectorProxy $group) {
+    $group->get('',
+      CategoryController::class.':listAction'
+    )->setName('category-list');
+  });
 });
 
-$productGroup->add(new AuthorizationMiddleware(
+$appGroup->add(new AuthorizationMiddleware(
   $app->getResponseFactory(), ['USER', 'ADMIN']
 ));
 

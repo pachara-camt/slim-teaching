@@ -12,6 +12,11 @@
 
 {% block header %}
   <h1>{{ block('title') }}</h1>
+  <nav id="cp-navigation">
+    <a class="cl-action cl-primary" href="{{ url_for('product-list') }}">Product</a>
+    |
+    <a class="cl-action cl-primary" href="{{ url_for('category-list') }}">Category</a>
+  </nav>
 {% endblock %}
 
 {% block content %}
@@ -22,7 +27,7 @@
   </p>
   {%~ endif %}
   <div class="cp-actions-panel">
-    <a class="cp-button cl-primary" href="" >Add Category</a>
+    <a class="cp-button cl-primary" href="{{ url_for('category-add-form') }}" >Add Category</a>
   </div>
   <table class="cp-list" id="category-list">
     <colgroup>

@@ -46,6 +46,16 @@ $appGroup = $app->group('', function(RouteCollectorProxy $group) {
   });
 
   $categoryGroup = $group->group('/category', function(RouteCollectorProxy $group) {
+    $adminGroup = $group->group('', function(RouteCollectorProxy $group){
+      $group->get('/add',
+        CategoryController::class.':addFormAction'
+      )->setName('category-add-form');
+      
+      $group->post('/add',
+        CategoryController::class.':addAction'
+      )->setName('category-add');
+    });
+    
     $group->get('',
       CategoryController::class.':listAction'
     )->setName('category-list');

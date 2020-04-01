@@ -12,6 +12,11 @@
 
 {% block header %}
   <h1>{{ block('title') }}</h1>
+  <nav id="cp-navigation">
+    <a class="cl-action cl-primary" href="{{ url_for('product-list') }}">Product</a>
+    |
+    <a class="cl-action cl-primary" href="{{ url_for('category-list') }}">Category</a>
+  </nav>
 {% endblock %}
 
 {% block content %}

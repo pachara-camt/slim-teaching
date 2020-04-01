@@ -70,6 +70,10 @@ $appGroup = $app->group('', function(RouteCollectorProxy $group) {
       $group->post('/{id}/update',
         CategoryController::class.':updateAction'
       )->setName('category-update');
+      
+      $group->get('/{id}/delete',
+        CategoryController::class.':deleteAction'
+      )->setName('category-delete');
     });
     
     $adminGroup->add(new AuthorizationMiddleware(

@@ -131,7 +131,7 @@ EOT
 
   public function updateAction(
     Request $request, Response $response, $args
-) : Response
+  ) : Response
     {
       // we get post data from $request object instead of $_POST variable
       $post = $request->getParsedBody();
@@ -166,7 +166,7 @@ EOT
 
   public function deleteAction(
     Request $request, Response $response, $args
-) : Response
+  ) : Response
     {
       $link = $request->getAttribute('mysqli')->connect();
       mysqli_query($link, sprintf(<<<EOT

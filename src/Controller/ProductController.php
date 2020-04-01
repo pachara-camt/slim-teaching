@@ -160,7 +160,7 @@ EOT
       // redirect to product-list route with HTTP status code 302
       $routeContext = RouteContext::fromRequest($request);
       return $response->withHeader('Location',
-        $routeContext->getRouteParser()->urlFor('product-list')
+        $routeContext->getRouteParser()->urlFor('product-view', ['id' => $args['id']])
       )->withStatus(302);
   }
 }

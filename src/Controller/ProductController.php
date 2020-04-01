@@ -120,14 +120,12 @@ EOT
     Request $request, Response $response, $args
   ) : Response
   {
-    // $args store value from placeholder that we want {id}
-    $id = $args['id'];
-    $item = null;
-    foreach(self::$PRODUCT_DATA as $product)
-      if($product['id'] == $id) $item = $product;
     $view = Twig::fromRequest($request);
+    // Get connection from mysqli middleware
+    $link = $request->getAttribute('mysqli')->connect();
     return $view->render($response, 'product-update-form.html', [
-      'data' => $item,
+      'data' => self::getItem($link, $args['id']),
+      'categoryList' => CategoryController::getAll($link),
     ]);
   }
 }

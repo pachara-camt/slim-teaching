@@ -24,6 +24,10 @@ $productGroup = $app->group('/product', function(RouteCollectorProxy $group) {
     $group->post('/{id}/update',
       ProductController::class.':updateAction'
     )->setName('product-update');
+    
+    $group->get('/{id}/delete',
+      ProductController::class.':deleteAction'
+    )->setName('product-delete');
   });
   
   $adminGroup->add(new AuthorizationMiddleware(

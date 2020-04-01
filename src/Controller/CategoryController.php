@@ -25,5 +25,30 @@ EOT
     
     return $items;
   }
+
+  public static function getItem($link, $id) : ?array
+  {
+    $result = mysqli_query($link, sprintf(<<<EOT
+SELECT * FROM category
+WHERE id = '%s'
+EOT
+      , mysqli_real_escape_string($link, (string)$id)
+    ));
+    
+    return mysqli_fetch_assoc($result);
+  }
+  
+  public function listAction(
+    Request $request, Response $response, $args
+  ) : Response
+    {
+      $view = Twig::fromRequest($request);
+      // Get connection from mysqli middleware
+      $link = $request->getAttribute('mysqli')->connect();
+      return $view->render($response, 'category-list.html', [
+        'data' => self::getAll($link),
+      ]);
+  }
 }
+
 

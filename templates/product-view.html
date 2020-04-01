@@ -26,7 +26,7 @@
   {%~ else %}
   <div class="cp-actions-panel">
     <a class="cp-button cl-decent" href="{{ url_for('product-update-form', {id: data.id}) }}" >Update Product</a>
-    <a class="cp-button cl-warn" href="" >Delete Product</a>
+    <a class="cp-button cl-warn" href="{{ url_for('product-delete', {id: data.id}) }}" >Delete Product</a>
     <span class="cp-space"></span>
     <a class="cp-button" href="{{ url_for('product-list') }}" >&lt; Back</a>
   </div>

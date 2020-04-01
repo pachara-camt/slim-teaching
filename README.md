@@ -32,3 +32,6 @@ Then start from step 4. in instrallation section.
 [After finish part 1 assignments](../../archive/part-1-finish.zip).
 
 [Before start part 2 assignments](../../archive/part-2-pre.zip).
+
+[After finish part 2 assignments](../../archive/part-2-final.zip).
+

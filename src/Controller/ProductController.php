@@ -131,7 +131,7 @@ EOT
 
   public function updateAction(
     Request $request, Response $response, $args
-    ) : Response
+) : Response
     {
       // we get post data from $request object instead of $_POST variable
       $post = $request->getParsedBody();
@@ -157,10 +157,33 @@ EOT
         ->getSegment(self::class)
         ->setFlash('message', "Updating is successful.");
       
-      // redirect to product-list route with HTTP status code 302
+      // redirect to product-view route with HTTP status code 302
       $routeContext = RouteContext::fromRequest($request);
       return $response->withHeader('Location',
         $routeContext->getRouteParser()->urlFor('product-view', ['id' => $args['id']])
+      )->withStatus(302);
+  }
+
+  public function deleteAction(
+    Request $request, Response $response, $args
+) : Response
+    {
+      $link = $request->getAttribute('mysqli')->connect();
+      mysqli_query($link, sprintf(<<<EOT
+DELETE FROM product WHERE id = '%s'
+EOT
+        , mysqli_real_escape_string($link, $args['id'])
+      ));
+      
+      // add successful message to flash session
+      $request->getAttribute('session')
+        ->getSegment(self::class)
+        ->setFlash('message', "Deleting is successful.");
+      
+      // redirect to product-list route with HTTP status code 302
+      $routeContext = RouteContext::fromRequest($request);
+      return $response->withHeader('Location',
+        $routeContext->getRouteParser()->urlFor('product-list')
       )->withStatus(302);
   }
 }

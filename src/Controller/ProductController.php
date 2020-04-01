@@ -128,4 +128,39 @@ EOT
       'categoryList' => CategoryController::getAll($link),
     ]);
   }
+
+  public function updateAction(
+    Request $request, Response $response, $args
+    ) : Response
+    {
+      // we get post data from $request object instead of $_POST variable
+      $post = $request->getParsedBody();
+      $link = $request->getAttribute('mysqli')->connect();
+      mysqli_query($link, sprintf(<<<EOT
+UPDATE product SET
+  id_category = '%s',
+  name        = '%s',
+  price       = '%s',
+  qty         = '%s'
+WHERE
+  id = '%s'
+EOT
+        , mysqli_real_escape_string($link, $post['id_category'])
+        , mysqli_real_escape_string($link, $post['name'])
+        , mysqli_real_escape_string($link, $post['price'])
+        , mysqli_real_escape_string($link, $post['qty'])
+        , mysqli_real_escape_string($link, $args['id'])
+      ));
+      
+      // add successful message to flash session
+      $request->getAttribute('session')
+        ->getSegment(self::class)
+        ->setFlash('message', "Updating is successful.");
+      
+      // redirect to product-list route with HTTP status code 302
+      $routeContext = RouteContext::fromRequest($request);
+      return $response->withHeader('Location',
+        $routeContext->getRouteParser()->urlFor('product-list')
+      )->withStatus(302);
+  }
 }

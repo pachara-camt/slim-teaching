@@ -47,6 +47,10 @@ $appGroup = $app->group('', function(RouteCollectorProxy $group) {
 
   $categoryGroup = $group->group('/category', function(RouteCollectorProxy $group) {
     $adminGroup = $group->group('', function(RouteCollectorProxy $group){
+      $group->get('',
+        CategoryController::class.':listAction'
+      )->setName('category-list');
+      
       $group->get('/add',
         CategoryController::class.':addFormAction'
       )->setName('category-add-form');
@@ -54,15 +58,23 @@ $appGroup = $app->group('', function(RouteCollectorProxy $group) {
       $group->post('/add',
         CategoryController::class.':addAction'
       )->setName('category-add');
+      
+      $group->get('/{id}',
+        CategoryController::class.':viewAction'
+      )->setName('category-view');
+      
+      $group->get('/{id}/update',
+        CategoryController::class.':updateFormAction'
+      )->setName('category-update-form');
+      
+      $group->post('/{id}/update',
+        CategoryController::class.':updateAction'
+      )->setName('category-update');
     });
     
-    $group->get('',
-      CategoryController::class.':listAction'
-    )->setName('category-list');
-    
-    $group->get('/{id}',
-      CategoryController::class.':viewAction'
-    )->setName('category-view');
+    $adminGroup->add(new AuthorizationMiddleware(
+      $group->getResponseFactory(), ['ADMIN']
+    ));
   });
 });
 
@@ -70,14 +82,16 @@ $appGroup->add(new AuthorizationMiddleware(
   $app->getResponseFactory(), ['USER', 'ADMIN']
 ));
 
-$app->get('/login',
-  LoginController::class.':loginFormAction'
-)->setName('login-form');
-
-$app->post('/login',
-  LoginController::class.':loginAction'
-)->setName('login');
-
-$app->get('/logout',
-  LoginController::class.':logoutAction'
-)->setName('logout');
+$loginGroup = $app->group('', function(RouteCollectorProxy $group) {
+  $group->get('/login',
+    LoginController::class.':loginFormAction'
+  )->setName('login-form');
+  
+  $group->post('/login',
+    LoginController::class.':loginAction'
+  )->setName('login');
+  
+  $group->get('/logout',
+    LoginController::class.':logoutAction'
+  )->setName('logout');
+});

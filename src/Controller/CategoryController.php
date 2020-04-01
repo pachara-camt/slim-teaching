@@ -42,35 +42,35 @@ EOT
   public function listAction(
     Request $request, Response $response, $args
   ) : Response
-    {
-      $view = Twig::fromRequest($request);
-      // Get connection from mysqli middleware
-      $link = $request->getAttribute('mysqli')->connect();
-      return $view->render($response, 'category-list.html', [
-        'data' => self::getAll($link),
-      ]);
+  {
+    $view = Twig::fromRequest($request);
+    // Get connection from mysqli middleware
+    $link = $request->getAttribute('mysqli')->connect();
+    return $view->render($response, 'category-list.html', [
+      'data' => self::getAll($link),
+    ]);
   }
 
   public function addFormAction(
     Request $request, Response $response, $args
-    ) : Response
-    {
-      $view = Twig::fromRequest($request);
-      // Get connection from mysqli middleware
-      $link = $request->getAttribute('mysqli')->connect();
-      return $view->render($response, 'category-add-form.html', [
-        'categoryList' => CategoryController::getAll($link),
-      ]);
+  ) : Response
+  {
+    $view = Twig::fromRequest($request);
+    // Get connection from mysqli middleware
+    $link = $request->getAttribute('mysqli')->connect();
+    return $view->render($response, 'category-add-form.html', [
+      'categoryList' => CategoryController::getAll($link),
+    ]);
   }
   
   public function addAction(
     Request $request, Response $response, $args
   ) : Response
-    {
-      // we get post data from $request object instead of $_POST variable
-      $post = $request->getParsedBody();
-      $link = $request->getAttribute('mysqli')->connect();
-      mysqli_query($link, sprintf(<<<EOT
+  {
+    // we get post data from $request object instead of $_POST variable
+    $post = $request->getParsedBody();
+    $link = $request->getAttribute('mysqli')->connect();
+    mysqli_query($link, sprintf(<<<EOT
 INSERT INTO category (
   name
 ) VALUES (
@@ -94,13 +94,54 @@ EOT
 
   public function viewAction(
     Request $request, Response $response, $args
-    ) : Response
-    {
-      $view = Twig::fromRequest($request);
-      // Get connection from mysqli middleware
-      $link = $request->getAttribute('mysqli')->connect();
-      return $view->render($response, 'category-view.html', [
-        'data' => self::getItem($link, $args['id']),
-      ]);
+  ) : Response
+  {
+    $view = Twig::fromRequest($request);
+    // Get connection from mysqli middleware
+    $link = $request->getAttribute('mysqli')->connect();
+    return $view->render($response, 'category-view.html', [
+      'data' => self::getItem($link, $args['id']),
+    ]);
+  }
+
+  public function updateFormAction(
+    Request $request, Response $response, $args
+  ) : Response
+  {
+    $view = Twig::fromRequest($request);
+    // Get connection from mysqli middleware
+    $link = $request->getAttribute('mysqli')->connect();
+    return $view->render($response, 'category-update-form.html', [
+      'data' => self::getItem($link, $args['id']),
+    ]);
+  }
+  
+  public function updateAction(
+    Request $request, Response $response, $args
+  ) : Response
+  {
+    // we get post data from $request object instead of $_POST variable
+    $post = $request->getParsedBody();
+    $link = $request->getAttribute('mysqli')->connect();
+    mysqli_query($link, sprintf(<<<EOT
+UPDATE category SET
+  name = '%s'
+WHERE
+  id = '%s'
+EOT
+      , mysqli_real_escape_string($link, $post['name'])
+      , mysqli_real_escape_string($link, $args['id'])
+    ));
+    
+    // add successful message to flash session
+    $request->getAttribute('session')
+      ->getSegment(self::class)
+      ->setFlash('message', "Updating is successful.");
+    
+    // redirect to product-view route with HTTP status code 302
+    $routeContext = RouteContext::fromRequest($request);
+    return $response->withHeader('Location',
+      $routeContext->getRouteParser()->urlFor('category-view', ['id' => $args['id']])
+    )->withStatus(302);
   }
 }

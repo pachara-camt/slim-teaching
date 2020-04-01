@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block content %}
-  <form class="cp-form" id="product-form" action="" method="post">
+  <form class="cp-form" id="product-form" action="{{ url_for('product-update', { id: data.id }) }}" method="post">
     <div class="cp-wrapper">
       <label>
         <span>Name</span>

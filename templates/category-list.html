@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% set global_classes = ['ly-wide'] %}
+
+{% block title %}Category List{% endblock %}
+
+{# add css for category list #}
+{% block head %}
+    {{~ parent() }}
+    <link rel="stylesheet" type="text/css"
+      href="{{ base_path() }}/css/cetegory/list.css" />
+{% endblock %}
+
+{% block header %}
+  <h1>{{ block('title') }}</h1>
+{% endblock %}
+
+{% block content %}
+  {%~ if _session.getFlash('message') is not empty %}
+  <p id="cp-message">
+    <i class="material-icons">info</i>
+    <span class="cl-message">{{ _session.getFlash('message') }}</span>
+  </p>
+  {%~ endif %}
+  <div class="cp-actions-panel">
+    <a class="cp-button cl-primary" href="" >Add Category</a>
+  </div>
+  <table class="cp-list" id="category-list">
+    <colgroup>
+      <col />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+  {%~ for item in data %}
+      <tr>
+        <th class="cl-action cl-primary">
+          <a href="">{{ item.name }}</a>
+        </th>
+      </tr>
+  {%~ endfor %}
+    </tbody>
+  </table>
+{% endblock %}

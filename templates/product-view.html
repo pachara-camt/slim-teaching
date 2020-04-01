@@ -15,6 +15,12 @@
 {% endblock %}
 
 {% block content %} 
+  {%~ if _session.getFlash('message') is not empty %}
+  <p id="cp-message">
+    <i class="material-icons">info</i>
+    <span class="cl-message">{{ _session.getFlash('message') }}</span>
+  </p>
+  {%~ endif %}
   {%- if data is empty %}
   <p>Product not found!!!</p>
   {%~ else %}

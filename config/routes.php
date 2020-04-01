@@ -22,7 +22,7 @@ $productGroup = $app->group('/product', function(RouteCollectorProxy $group) {
     )->setName('product-update-form');
   
     $group->post('/{id}/update',
-      ProductController::class.':updateFormAction'
+      ProductController::class.':updateAction'
     )->setName('product-update');
   });
   

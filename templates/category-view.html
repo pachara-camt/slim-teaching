@@ -1,0 +1,39 @@
+{# extend main layout #}
+{% extends "layout.html" %}
+
+{% block title %}Category View{% endblock %}
+
+{# add css for category view #}
+{% block head %}
+    {{~ parent() }}
+    <link rel="stylesheet" type="text/css"
+      href="{{ base_path() }}/css/category/view.css" />
+{% endblock %}
+
+{% block header %}
+  <h1>{{ block('title') }}</h1>
+{% endblock %}
+
+{% block content %} 
+  {%~ if _session.getFlash('message') is not empty %}
+  <p id="cp-message">
+    <i class="material-icons">info</i>
+    <span class="cl-message">{{ _session.getFlash('message') }}</span>
+  </p>
+  {%~ endif %}
+  {%- if data is empty %}
+  <p>Product not found!!!</p>
+  {%~ else %}
+  <div class="cp-actions-panel">
+    <a class="cp-button cl-decent" href="" >Update Product</a>
+    <a class="cp-button cl-warn" href="" >Delete Product</a>
+    <span class="cp-space"></span>
+    <a class="cp-button" href="{{ url_for('category-list') }}" >&lt; Back</a>
+  </div>
+  <p class="cp-detail" id="category-view">
+    <span class="cl-label">Name:</span>
+    <span class="cl-value">{{ data.name }}</span>
+    <br />
+  </p>
+  {%~ endif %}
+{% endblock %}

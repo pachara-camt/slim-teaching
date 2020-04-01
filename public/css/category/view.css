@@ -1,0 +1,17 @@
+#category-view {
+  line-height: 2rem;
+}
+
+#category-view .cl-label {
+  width: 25%;
+}
+
+#category-view .cl-value {
+  width: 74%;
+}
+
+#category-view .cl-value.cl-number {
+  display: inline-block;
+  width: 8rem;
+  white-space: pre;
+}

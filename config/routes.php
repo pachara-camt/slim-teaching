@@ -59,6 +59,10 @@ $appGroup = $app->group('', function(RouteCollectorProxy $group) {
     $group->get('',
       CategoryController::class.':listAction'
     )->setName('category-list');
+    
+    $group->get('/{id}',
+      CategoryController::class.':viewAction'
+    )->setName('category-view');
   });
 });
 

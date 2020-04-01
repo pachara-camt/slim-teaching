@@ -91,4 +91,16 @@ EOT
       $routeContext->getRouteParser()->urlFor('category-list')
     )->withStatus(302);
   }
+
+  public function viewAction(
+    Request $request, Response $response, $args
+    ) : Response
+    {
+      $view = Twig::fromRequest($request);
+      // Get connection from mysqli middleware
+      $link = $request->getAttribute('mysqli')->connect();
+      return $view->render($response, 'category-view.html', [
+        'data' => self::getItem($link, $args['id']),
+      ]);
+  }
 }

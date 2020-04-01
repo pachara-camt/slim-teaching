@@ -42,7 +42,7 @@
   {%~ for item in data %}
       <tr>
         <th class="cl-action cl-primary">
-          <a href="">{{ item.name }}</a>
+          <a href="{{ url_for('category-view', {id: item.id}) }}">{{ item.name }}</a>
         </th>
       </tr>
   {%~ endfor %}

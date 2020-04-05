@@ -28,6 +28,7 @@ In the chapters of slim framework.
 Instead of using git command, you can use the following snapshots.
 Extract the zip file to web server document root with your student ID, e.g. `C:\xampp\htdocs\612110xxx`, and rename directory to `slim`.
 Then start from step 4. in instrallation section.
+Select one that you can work with.
 
 [After finish part 1 assignments](../../archive/part-1-finish.zip).
 
@@ -35,11 +36,19 @@ Then start from step 4. in instrallation section.
 
 [After finish part 2 assignments](../../archive/part-2-final.zip).
 
-[Advance approach that uses the the following pattern](../../archive/advance.zip).
+[Advanced template approach that uses the the following pattern](../../archive/advanced-template.zip).
 
-    1. All list pages inherite from `list-layout.html` tempalte.
-    2. All view pages inherite from `view-layout.html` tempalte.
-    3. All form pages inherite from `form-layout.html` tempalte.
-    4. Reuse the same form tempalte for both add and update action.
-    5. Organize template by using directory name instead of name prefix.
-    6. Separate flash message template segment to individual file that can be used in many templates.
+    1. Use the following routes names convention.
+        - list action suffix with `-list`.
+        - view action suffix with `-view`.
+        - add form action suffix with `-add-form`.
+        - add to database action suffix with `-add`.
+        - update form action suffix with `-update-form`.
+        - update to database action suffix with `-update`.
+        - delete from database action suffix with `-delete`.
+    2. All list pages inherite from `list-layout.html` tempalte.
+    3. All view pages inherite from `view-layout.html` tempalte.
+    4. All form pages inherite from `form-layout.html` tempalte.
+    5. Reuse the same form tempalte for both add and update action.
+    6. Organize template by using directory name instead of name prefix.
+    7. Separate flash message template segment to individual file that can be used in many templates.

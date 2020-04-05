@@ -9,6 +9,9 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 
+use App\Middleware\AuraSession;
+use App\Middleware\Mysqli;
+
 class LoginController
 {
   public function loginFormAction(
@@ -26,7 +29,7 @@ class LoginController
   ) : Response
   {
     $post = $request->getParsedBody();
-    $link = $request->getAttribute('mysqli')->connect();
+    $link = Mysqli::fromRequest($request)->connect();
     $result = mysqli_query($link, sprintf(<<<EOT
 SELECT * FROM systemuser WHERE username = '%s'
 LIMIT 0, 1;
@@ -36,7 +39,7 @@ EOT
     
     $user = mysqli_fetch_assoc($result);
     $routeContext = RouteContext::fromRequest($request);
-    $session = $request->getAttribute('session');
+    $session = AuraSession::fromRequest($request);
 
     // in the case of login success we assign user data to global session with key user
     // and then redirect to product-list route
@@ -62,7 +65,7 @@ EOT
     Request $request, Response $response, $args
   ) : Response
   {
-    $session = $request->getAttribute('session');
+    $session = AuraSession::fromRequest($request);
     $globalSegment = $session->getSegment('global');
     $globalSegment->clear();
     $routeContext = RouteContext::fromRequest($request);

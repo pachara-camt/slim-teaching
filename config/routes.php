@@ -1,13 +1,13 @@
 <?php
 declare(strict_types = 1);
 
+use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 
 use App\Controller\CategoryController;
 use App\Controller\LoginController;
 use App\Controller\ProductController;
 use App\Middleware\AuthorizationMiddleware;
-use Slim\App;
 
 return function(App $app) {
   $appGroup = $app->group('', function(RouteCollectorProxy $group) {

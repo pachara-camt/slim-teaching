@@ -9,6 +9,9 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 
+use App\Middleware\AuraSession;
+use App\Middleware\Mysqli;
+
 class CategoryController
 {
   public static function getAll($link) : array
@@ -45,7 +48,7 @@ EOT
   {
     $view = Twig::fromRequest($request);
     // Get connection from mysqli middleware
-    $link = $request->getAttribute('mysqli')->connect();
+    $link = Mysqli::fromRequest($request)->connect();
     return $view->render($response, 'category/list.html', [
       'data' => self::getAll($link),
     ]);
@@ -57,7 +60,7 @@ EOT
   {
     $view = Twig::fromRequest($request);
     // Get connection from mysqli middleware
-    $link = $request->getAttribute('mysqli')->connect();
+    $link = Mysqli::fromRequest($request)->connect();
     return $view->render($response, 'category/form.html', [
       'categoryList' => CategoryController::getAll($link),
     ]);
@@ -69,7 +72,7 @@ EOT
   {
     // we get post data from $request object instead of $_POST variable
     $post = $request->getParsedBody();
-    $link = $request->getAttribute('mysqli')->connect();
+    $link = Mysqli::fromRequest($request)->connect();
     mysqli_query($link, sprintf(<<<EOT
 INSERT INTO category (
   name
@@ -81,7 +84,7 @@ EOT
     ));
     
     // add successful message to flash session
-    $request->getAttribute('session')
+    AuraSession::fromRequest($request)
       ->getSegment(self::class)
       ->setFlash('message', "Adding is successful.");
     
@@ -98,7 +101,7 @@ EOT
   {
     $view = Twig::fromRequest($request);
     // Get connection from mysqli middleware
-    $link = $request->getAttribute('mysqli')->connect();
+    $link = Mysqli::fromRequest($request)->connect();
     return $view->render($response, 'category/view.html', [
       'data' => self::getItem($link, $args['id']),
     ]);
@@ -110,8 +113,8 @@ EOT
   {
     $view = Twig::fromRequest($request);
     // Get connection from mysqli middleware
-    $link = $request->getAttribute('mysqli')->connect();
-    return $view->render($response, 'category-update-form.html', [
+    $link = Mysqli::fromRequest($request)->connect();
+    return $view->render($response, 'category/form.html', [
       'data' => self::getItem($link, $args['id']),
     ]);
   }
@@ -122,7 +125,7 @@ EOT
   {
     // we get post data from $request object instead of $_POST variable
     $post = $request->getParsedBody();
-    $link = $request->getAttribute('mysqli')->connect();
+    $link = Mysqli::fromRequest($request)->connect();
     mysqli_query($link, sprintf(<<<EOT
 UPDATE category SET
   name = '%s'
@@ -134,7 +137,7 @@ EOT
     ));
     
     // add successful message to flash session
-    $request->getAttribute('session')
+    AuraSession::fromRequest($request)
       ->getSegment(self::class)
       ->setFlash('message', "Updating is successful.");
     
@@ -149,7 +152,7 @@ EOT
     Request $request, Response $response, $args
   ) : Response
   {
-    $link = $request->getAttribute('mysqli')->connect();
+    $link = Mysqli::fromRequest($request)->connect();
     mysqli_query($link, sprintf(<<<EOT
 DELETE FROM category WHERE id = '%s'
 EOT
@@ -157,7 +160,7 @@ EOT
     ));
     
     // add successful message to flash session
-    $request->getAttribute('session')
+    AuraSession::fromRequest($request)
       ->getSegment(self::class)
       ->setFlash('message', "Deleting is successful.");
     

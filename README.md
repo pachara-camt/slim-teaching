@@ -57,3 +57,6 @@ Select one that you can work with.
 
     1. Each configuration files return closure function that make many IDE work with auto-complete.
     2. Use more [material icons](https://google.github.io/material-design-icons/).
+    3. Add more message information.
+    4. Change getting middleware objects by using fromRequest pattern.
+    

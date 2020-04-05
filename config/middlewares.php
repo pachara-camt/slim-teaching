@@ -5,14 +5,14 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
+use Slim\App;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
 
-use Middlewares\AuraSession;
-
 use App\Middleware\MysqliMiddleware;
-use Slim\App;
+use App\Middleware\AuraSessionMiddleware;
+use App\Middleware\AuraSession;
 
 return function(App $app) {
   // add session to template, we start variable name
@@ -23,7 +23,7 @@ return function(App $app) {
     $view = Twig::fromRequest($request);
     
     // get session object from middleware
-    $session = $request->getAttribute('session');
+    $session = AuraSession::fromRequest($request);
     
     // add global session with name _global
     $view->offsetSet('_global', $session->getSegment('global'));
@@ -56,7 +56,7 @@ return function(App $app) {
     $_SERVER['DB_PASSWORD'], $_SERVER['DB_DBNAME']
   ));
   
-  $session = new AuraSession();
+  $session = new AuraSessionMiddleware();
   
   // Assign cookie name to isolate our session from other applications,
   // change 612110xxx to your student ID

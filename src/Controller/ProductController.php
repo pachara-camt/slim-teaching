@@ -11,13 +11,6 @@ use Slim\Views\Twig;
 
 class ProductController
 {
-  // This is just a mock up data, the real data come from database
-  private static $PRODUCT_DATA = [
-    ['id' => 101, 'name' => 'Product A', 'category_name' => 'Phone',  'price' => 1234.56, 'qty' => 100 ],
-    ['id' => 250, 'name' => 'Product B', 'category_name' => 'Phone',  'price' => 2345.67, 'qty' => 200 ],
-    ['id' => 400, 'name' => 'Product C', 'category_name' => 'Tablet', 'price' => 3456.78, 'qty' => 300 ],
-  ];
-  
   public static function getAll($link) : array
   {
     $result = mysqli_query($link, sprintf(<<<EOT

@@ -92,7 +92,7 @@ EOT
     // add successful message to flash session
     AuraSession::fromRequest($request)
       ->getSegment(self::class)
-      ->setFlash('message', "Adding is successful.");
+      ->setFlash('message', "Adding {$post['name']} is successful.");
     
     // redirect to product-list route with HTTP status code 302
     $routeContext = RouteContext::fromRequest($request);
@@ -152,7 +152,7 @@ EOT
       // add successful message to flash session
       AuraSession::fromRequest($request)
         ->getSegment(self::class)
-        ->setFlash('message', "Updating is successful.");
+        ->setFlash('message', "Updating {$post['name']} is successful.");
       
       // redirect to product-view route with HTTP status code 302
       $routeContext = RouteContext::fromRequest($request);
@@ -166,21 +166,32 @@ EOT
   ) : Response
     {
       $link = Mysqli::fromRequest($request)->connect();
-      mysqli_query($link, sprintf(<<<EOT
+      $item = self::getItem($link, $args['id']);
+      $routeContext = RouteContext::fromRequest($request);
+      $targetUrl = null;
+      if(!empty($item)) {
+        mysqli_query($link, sprintf(<<<EOT
 DELETE FROM product WHERE id = '%s'
 EOT
-        , mysqli_real_escape_string($link, $args['id'])
-      ));
-      
-      // add successful message to flash session
-      AuraSession::fromRequest($request)
-        ->getSegment(self::class)
-        ->setFlash('message', "Deleting is successful.");
+          , mysqli_real_escape_string($link, $item['id'])
+        ));
+        
+        // add successful message to flash session
+        AuraSession::fromRequest($request)
+          ->getSegment(self::class)
+          ->setFlash('message', "Deleting {$item['name']} is successful.");
+        
+        $targetUrl = $routeContext->getRouteParser()->urlFor('product-list');
+      } else {
+        // add successful message to flash session
+        AuraSession::fromRequest($request)
+          ->getSegment(self::class)
+          ->setFlash('error', "Deleted target (id = {$args['id']}) is not found.");
+        
+        $targetUrl = $routeContext->getRouteParser()->urlFor('product-view');
+      }
       
       // redirect to product-list route with HTTP status code 302
-      $routeContext = RouteContext::fromRequest($request);
-      return $response->withHeader('Location',
-        $routeContext->getRouteParser()->urlFor('product-list')
-      )->withStatus(302);
+      return $response->withHeader('Location', $targetUrl)->withStatus(302);
   }
 }

@@ -35,3 +35,11 @@ Then start from step 4. in instrallation section.
 
 [After finish part 2 assignments](../../archive/part-2-final.zip).
 
+[Advance approach that uses the the following pattern](../../archive/advance.zip).
+
+    1. All list pages inherite from `list-layout.html` tempalte.
+    2. All view pages inherite from `view-layout.html` tempalte.
+    3. All form pages inherite from `form-layout.html` tempalte.
+    4. Reuse the same form tempalte for both add and update action.
+    5. Organize template by using directory name instead of name prefix.
+    6. Separate flash message template segment to individual file that can be used in many templates.

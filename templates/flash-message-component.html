@@ -1,0 +1,14 @@
+<!--  START: flash message -->
+{%~ if _session.getFlash('message') is not empty %}
+  <p id="cp-message">
+    <i class="material-icons">info</i>
+    <span class="cl-message">{{ _session.getFlash('message') }}</span>
+  </p>
+{%~ endif %}
+{%~ if _session.getFlash('error') is not empty %}
+  <p id="cp-error">
+    <i class="material-icons">error</i>
+    <span class="cl-message">{{ _session.getFlash('error') }}</span>
+  </p>
+{%~ endif %}
+<!--  END: flash message -->

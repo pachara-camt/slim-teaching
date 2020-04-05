@@ -1,20 +1,8 @@
-{% extends "layout.html" %}
+{% extends "form-layout.html" %}
+{% set data_name = 'product' %}
 
-{% block title %}Product Form : Update{% endblock %}
-
-{# add css for product form #}
-{% block head %}
-    {{~ parent() }}
-    <link rel="stylesheet" type="text/css"
-      href="{{ base_path() }}/css/product/form.css" />
-{% endblock %}
-
-{% block header %}
-  <h1>{{ block('title') }}</h1>
-{% endblock %}
-
-{% block content %}
-  <form class="cp-form" id="product-form" action="{{ url_for('product-update', { id: data.id }) }}" method="post">
+{% block form_content %}
+  <form class="cp-form" id="{{ data_name }}-form" action="{{ (data.id is empty)? url_for(data_name ~ '-add') : url_for(data_name ~ '-update', { id: data.id }) }}" method="post">
     <div class="cp-wrapper">
       <label>
         <span>Name</span>
@@ -25,9 +13,9 @@
       <label>
         <span>Category</span>
         <select name="id_category">
-        {% for category in categoryList %}
-          <option value="{{ category.id }}"{{ (category.id == data.id_category)? ' selected' : '' }}>{{ category.name }}</option>
-        {% endfor %}
+          {% for category in categoryList %}
+          <option value="{{ category.id }}"{{ (data.id_category == category.id)? ' selected' : '' }}>{{ category.name }}</option>
+          {% endfor %}
         </select>
       </label>
     </div>
@@ -46,7 +34,7 @@
     <div class="cp-actions-panel">
       <button class="cl-primary" type="submit">Save</button>
       <span class="cp-space"></span>
-      <a class="cp-button" href="{{ url_for('product-view', {id: data.id}) }}">Cancel</a>
+      <a class="cp-button" href="{{ (data.id is empty)? url_for(data_name ~ '-list') : url_for(data_name ~ '-view', {id: data.id}) }}">Cancel</a>
     </div>
   </form>
 {% endblock %}

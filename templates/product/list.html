@@ -1,0 +1,33 @@
+{% extends "list-layout.html" %}
+{% set data_name = 'product' %}
+
+{% block list_content %}
+  <table class="cp-list" id="{{ data_name }}-list">
+    <colgroup>
+      <col />
+      <col style="width: 10em;" />
+      <col style="width: 10em;" />
+      <col style="width: 10em;" />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+  {%~ for item in data %}
+      <tr>
+        <th class="cl-action cl-primary">
+          <a href="{{ url_for(data_name ~ '-view', {id: item.id}) }}">{{ item.name }}</a>
+        </th>
+        <td>{{ item.category_name }}</td>
+        <td class="cl-number">{{ item.price|number_format(2) }}</td>
+        <td class="cl-number">{{ item.qty|number_format(0) }}</td>
+      </tr>
+  {%~ endfor %}
+    </tbody>
+  </table>
+{% endblock %}

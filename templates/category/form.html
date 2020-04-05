@@ -1,0 +1,18 @@
+{% extends "form-layout.html" %}
+{% set data_name = 'category' %}
+
+{% block form_content %}
+  <form class="cp-form" id="{{ data_name }}-form" action="{{ (data.id is empty)? url_for(data_name ~ '-add') : url_for(data_name ~ '-update', { id: data.id }) }}" method="post">
+    <div class="cp-wrapper">
+      <label>
+        <span>Name</span>
+        <input type="text" name="name" value="{{ data.name }}" />
+      </label>
+    </div>
+    <div class="cp-actions-panel">
+      <button class="cl-primary" type="submit">Save</button>
+      <span class="cp-space"></span>
+      <a class="cp-button" href="{{ (data.id is empty)? url_for(data_name ~ '-list') : url_for(data_name ~ '-view', {id: data.id}) }}">Cancel</a>
+    </div>
+  </form>
+{% endblock %}

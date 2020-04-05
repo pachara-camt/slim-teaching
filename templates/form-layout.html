@@ -1,0 +1,20 @@
+{# extend main layout #}
+{% extends "layout.html" %}
+
+{% block title %}{{ data_name|capitalize }} Form : {{ (data.id is empty)? 'Add' : 'Update' }}{% endblock %}
+
+{% block head %}
+    {{~ parent() }}
+    <link rel="stylesheet" type="text/css"
+      href="{{ base_path() }}/css/{{ data_name }}/form.css" />
+{% endblock %}
+
+{% block header %}
+  <h1>{{ block('title') }}</h1>
+{% endblock %}
+
+{% block content %}
+<!--  START: form content -->
+    {%~ block form_content %}{% endblock %}
+<!--  END: form content -->
+{% endblock %}

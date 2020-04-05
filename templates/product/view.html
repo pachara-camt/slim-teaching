@@ -1,0 +1,23 @@
+{% extends "view-layout.html" %}
+{% set data_name = 'product' %}
+
+{% block view_content %} 
+  {%- if data is empty %}
+  <p>Product not found!!!</p>
+  {%~ else %}
+  <p class="cp-detail" id="{{ data_name }}-view">
+    <span class="cl-label">Name:</span>
+    <span class="cl-value">{{ data.name }}</span>
+    <br />
+    <span class="cl-label">Category:</span>
+    <span class="cl-value">{{ data.category_name }}</span>
+    <br />
+    <span class="cl-label">Price:</span>
+    <span class="cl-value cl-number">{{ data.price|number_format(2) }}</span>
+    <br />
+    <span class="cl-label">Quantity:</span>
+    <span class="cl-value cl-number">{{ data.qty|number_format(0) }}&nbsp;&nbsp;&nbsp;</span>
+    <br />
+  </p>
+  {%~ endif %}
+{% endblock %}

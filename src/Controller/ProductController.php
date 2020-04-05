@@ -48,7 +48,7 @@ EOT
     $view = Twig::fromRequest($request);
     // Get connection from mysqli middleware
     $link = $request->getAttribute('mysqli')->connect();
-    return $view->render($response, 'product-list.html', [
+    return $view->render($response, 'product/list.html', [
       'data' => self::getAll($link),
     ]);
   }
@@ -60,7 +60,8 @@ EOT
     $view = Twig::fromRequest($request);
     // Get connection from mysqli middleware
     $link = $request->getAttribute('mysqli')->connect();
-    return $view->render($response, 'product-add-form.html', [
+    return $view->render($response, 'product/form.html', [
+      'data' => null,
       'categoryList' => CategoryController::getAll($link),
     ]);
   }
@@ -104,7 +105,7 @@ EOT
     $view = Twig::fromRequest($request);
     // Get connection from mysqli middleware
     $link = $request->getAttribute('mysqli')->connect();
-    return $view->render($response, 'product-view.html', [
+    return $view->render($response, 'product/view.html', [
       'data' => self::getItem($link, $args['id']),
     ]);
   }
@@ -116,7 +117,7 @@ EOT
     $view = Twig::fromRequest($request);
     // Get connection from mysqli middleware
     $link = $request->getAttribute('mysqli')->connect();
-    return $view->render($response, 'product-update-form.html', [
+    return $view->render($response, 'product/form.html', [
       'data' => self::getItem($link, $args['id']),
       'categoryList' => CategoryController::getAll($link),
     ]);

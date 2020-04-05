@@ -1,0 +1,30 @@
+{# extend main layout #}
+{% extends "layout.html" %}
+{% set global_classes = ['ly-wide'] %}
+
+{% block title %}{{ data_name|capitalize }} List{% endblock %}
+
+{% block head %}
+    {{~ parent() }}
+    <link rel="stylesheet" type="text/css"
+      href="{{ base_path() }}/css/{{ data_name }}/list.css" />
+{% endblock %}
+
+{% block header %}
+  <h1>{{ block('title') }}</h1>
+  <nav id="cp-navigation">
+    <a class="cl-action cl-primary" href="{{ url_for('product-list') }}">Product</a>
+    |
+    <a class="cl-action cl-primary" href="{{ url_for('category-list') }}">Category</a>
+  </nav>
+{% endblock %}
+
+{% block content %}
+  {%~ include 'flash-message-component.html' %}
+  <div class="cp-actions-panel">
+    <a class="cp-button cl-primary" href="{{ url_for(data_name ~ '-add-form') }}" >Add {{ data_name|capitalize }}</a>
+  </div>
+<!--  START: list content -->
+  {%~ block list_content %}{% endblock %}
+<!--  END: list content -->
+{% endblock %}

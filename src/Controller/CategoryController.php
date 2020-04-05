@@ -46,7 +46,7 @@ EOT
     $view = Twig::fromRequest($request);
     // Get connection from mysqli middleware
     $link = $request->getAttribute('mysqli')->connect();
-    return $view->render($response, 'category-list.html', [
+    return $view->render($response, 'category/list.html', [
       'data' => self::getAll($link),
     ]);
   }
@@ -58,7 +58,7 @@ EOT
     $view = Twig::fromRequest($request);
     // Get connection from mysqli middleware
     $link = $request->getAttribute('mysqli')->connect();
-    return $view->render($response, 'category-add-form.html', [
+    return $view->render($response, 'category/form.html', [
       'categoryList' => CategoryController::getAll($link),
     ]);
   }
@@ -99,7 +99,7 @@ EOT
     $view = Twig::fromRequest($request);
     // Get connection from mysqli middleware
     $link = $request->getAttribute('mysqli')->connect();
-    return $view->render($response, 'category-view.html', [
+    return $view->render($response, 'category/view.html', [
       'data' => self::getItem($link, $args['id']),
     ]);
   }

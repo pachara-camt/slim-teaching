@@ -16,7 +16,7 @@ class LoginController
   ) : Response
   {
     $view = Twig::fromRequest($request);
-    return $view->render($response, 'login-form.html', [
+    return $view->render($response, 'login/form.html', [
       'data' => null,
     ]);
   }

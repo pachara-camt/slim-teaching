@@ -1,0 +1,27 @@
+{# extend main layout #}
+{% extends "layout.html" %}
+
+{% block title %}{{ data_name|capitalize }} View{% endblock %}
+
+{% block head %}
+    {{~ parent() }}
+    <link rel="stylesheet" type="text/css"
+      href="{{ base_path() }}/css/{{ data_name }}/view.css" />
+{% endblock %}
+
+{% block header %}
+  <h1>{{ block('title') }}</h1>
+{% endblock %}
+
+{% block content %}
+  {%~ include 'flash-message-component.html' %}
+  <div class="cp-actions-panel">
+    <a class="cp-button cl-decent" href="{{ url_for(data_name ~  '-update-form', {id: data.id}) }}" >Update {{ data_name|capitalize }}</a>
+    <a class="cp-button cl-warn" href="{{ url_for(data_name ~  '-delete', {id: data.id}) }}" >Delete {{ data_name|capitalize }}</a>
+    <span class="cp-space"></span>
+    <a class="cp-button" href="{{ url_for(data_name ~  '-list') }}" >&lt; Back</a>
+  </div>
+<!-- START: view content -->
+  {%~ block view_content %}{% endblock %}
+<!-- END: view content -->
+{% endblock %}

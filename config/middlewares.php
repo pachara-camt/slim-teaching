@@ -51,10 +51,14 @@ return function(App $app) {
   $app->add(TwigMiddleware::create($app, $twig));
   
   // Add mysqli Middleware with parameters from .env file.
-  $app->add(new MysqliMiddleware(
-    $_SERVER['DB_HOST'], $_SERVER['DB_USERNAME'],
-    $_SERVER['DB_PASSWORD'], $_SERVER['DB_DBNAME']
-  ));
+  $app->add(new MysqliMiddleware([
+    'default' => [
+      'host' => $_SERVER['DB_HOST'],
+      'username' => $_SERVER['DB_USERNAME'],
+      'password' => $_SERVER['DB_PASSWORD'],
+      'dbname' => $_SERVER['DB_DBNAME'],
+    ],
+  ]));
   
   $session = new AuraSessionMiddleware();
   

@@ -18,7 +18,7 @@ class AuraSession
     $session = $request->getAttribute($attributeName);
     if ($session === null || !($session instanceof Session)) {
       throw new \RuntimeException(
-        'Twig could not be found in the server request attributes using the key "'. $attributeName .'".'
+        'AuraSession could not be found in the server request attributes using the key "'. $attributeName .'".'
         );
     }
     

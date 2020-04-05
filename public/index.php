@@ -14,7 +14,8 @@ $app = AppFactory::create();
 $app->setBasePath($_SERVER['BASE_PATH']);
 
 // Load middlewares
-require_once __DIR__.'/../config/middlewares.php';
+$middlewaresConfig = require_once __DIR__.'/../config/middlewares.php';
+$middlewaresConfig($app);
 
 $app->addRoutingMiddleware();
 $app->addErrorMiddleware(
@@ -23,6 +24,7 @@ $app->addErrorMiddleware(
 );
 
 // Load routes
-require_once __DIR__.'/../config/routes.php';
+$routesConfig = require_once __DIR__.'/../config/routes.php';
+$routesConfig($app);
 
 $app->run();

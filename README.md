@@ -52,3 +52,8 @@ Select one that you can work with.
     5. Reuse the same form tempalte for both add and update action.
     6. Organize template by using directory name instead of name prefix.
     7. Separate flash message template segment to individual file that can be used in many templates.
+
+[More advanced configuraion](../../archive/advanced-configuration.zip).
+
+    1. Each configuration files return closure function that make many IDE work with auto-complete.
+    2. Use more [material icons](https://google.github.io/material-design-icons/).

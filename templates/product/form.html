@@ -31,10 +31,6 @@
         <input type="number" step="1" class="cl-number" name="qty" value="{{ data.qty }}" />
       </label>
     </div>
-    <div class="cp-actions-panel">
-      <button class="cl-primary" type="submit">Save</button>
-      <span class="cp-space"></span>
-      <a class="cp-button" href="{{ (data.id is empty)? url_for(data_name ~ '-list') : url_for(data_name ~ '-view', {id: data.id}) }}">Cancel</a>
-    </div>
+    {%~ include 'form-actions-component.html' %}
   </form>
 {% endblock %}

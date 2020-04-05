@@ -12,7 +12,7 @@
   </head>
   <body class="{{ global_classes|join(' ') }}">
     <div id="user-panel">
-      <span class="cl-label">Current User :</span>
+      <i class="material-icons">face</i>
       <span class="cl-value">{{ _global.get('user').username }}</span>
       <a class="cp-button cl-decent" href="{{ url_for('logout') }}">
         <i class="material-icons">exit_to_app</i>

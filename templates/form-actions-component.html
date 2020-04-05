@@ -1,0 +1,11 @@
+<div class="cp-actions-panel">
+  <button class="cl-primary" type="submit">
+    <i class="material-icons">save</i>
+    <span>Save</span>
+  </button>
+  <span class="cp-space"></span>
+  <a class="cp-button" href="{{ (data.id is empty)? url_for(data_name ~ '-list') : url_for(data_name ~ '-view', {id: data.id}) }}">
+    <i class="material-icons">clear</i>
+    <span>Cancel</span>
+  </a>
+</div>
